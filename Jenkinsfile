@@ -17,7 +17,7 @@ pipeline{
     stages {
         stage("Code Checkout") {
             steps {
-                git url: 'https://github.com/samraazeem/Carousel-Angular.git'
+                git url: 'https://github.com/samraazeem/app_samraazeem.git'
             }
         }
 
