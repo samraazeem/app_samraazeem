@@ -3,11 +3,10 @@ pipeline{
     username = 'samraazeem'
     dockerPort = "${env.BRANCH_NAME == "develop" ? 7300 : 7200}"
     dockerUsername = "samraazeem"
-    registry = "samraazeem/angular-carousel"
+    registry = "samraazeem/"
     registryCredential = 'docker'
     dockerImage= ''
     kubernetesContext = "Istio-Cluster"
-    kubernetesPort = "${env.BRANCH_NAME == "develop" ? 30158 : 30157}"
     }  
     agent any 
     
@@ -21,12 +20,14 @@ pipeline{
                 git url: 'https://github.com/samraazeem/Carousel-Angular.git'
             }
         }
+
         stage('Build') {
             steps{
                 sh 'npm install'
                 sh 'npm run build'  
             }
         }
+
         stage('Unit Testing'){
             when {
                 branch 'development'
@@ -35,6 +36,7 @@ pipeline{
                sh 'ng test --codeCoverage=true --watcher=true'
             } 
         }
+
         stage('SonarQube Analysis'){
             when {
                 branch 'production'
@@ -45,6 +47,7 @@ pipeline{
 				}
 			}
 		}
+
         stage('Docker Image') { 
             steps{
                 script {
@@ -52,6 +55,7 @@ pipeline{
                 }
             }
         }
+
         stage('Container'){
             parallel {
                 stage('PreContainer Check'){
@@ -62,11 +66,10 @@ pipeline{
                 }
                 stage('Publish DockerHub'){
                     steps{
-                        script {
-                            docker.withRegistry( '', registryCredential ) {
-                            dockerImage.push()
-                            }
-                        }
+                        sh "docker tag i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} ${dockerUsername}/i-${username}-${BRANCH_NAME}:${BUILD_NUMBER}"
+                        sh "docker tag i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} ${dockerUsername}/i-${username}-${BRANCH_NAME}"
+                        sh "docker push ${dockerUsername}/i-${username}-${BRANCH_NAME}:${BUILD_NUMBER}"
+                        sh "docker push ${dockerUsername}/i-${username}-${BRANCH_NAME}"
                     }
                 }
             }  
@@ -78,8 +81,9 @@ pipeline{
         } 
         stage('Kubernetes Deployment'){
             steps{
-                sh 'kubectl apply -f ./kubernetes/frontend.yaml -n=kubernetes-cluster-samraazeem'
-                sh 'kubectl apply -f ./kubernetes/backend.yaml -n=kubernetes-cluster-samraazeem'
+                //sh 'kubectl apply -f ./kubernetes/frontend.yaml -n=kubernetes-cluster-samraazeem'
+                //sh 'kubectl apply -f ./kubernetes/backend.yaml -n=kubernetes-cluster-samraazeem'
+                sh 'npm install'
             }
         } 
     }
