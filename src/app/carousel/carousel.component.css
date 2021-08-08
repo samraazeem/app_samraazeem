@@ -1,0 +1,48 @@
+.empty {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: #043544;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: auto;
+  padding: 50px;
+  background: #464649;
+}
+
+.header {
+  padding: 10px;
+  background: white;
+}
+.carousel {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: relative;
+  height: 300px;
+}
+.carousel-image {
+  width: 100%;
+  object-fit: cover;
+  height: 300px;
+}
+.list-ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.next {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+}
+
+.pre {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+}
