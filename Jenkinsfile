@@ -33,7 +33,7 @@ pipeline{
                 branch 'develop'
             }
             steps{
-               sh 'ng test --codeCoverage=true --watcher=true'
+               sh 'npm run test'
             } 
         }
 
@@ -42,10 +42,9 @@ pipeline{
                 branch 'master'
             }
 			steps{
-                sh 'npm install'
-				//withSonarQubeEnv('SONAR'){
-				//	sh 'npm run sonar'
-				//}
+				withSonarQubeEnv('SONAR'){
+					sh 'npm run sonar'
+				}
 			}
 		}
 
