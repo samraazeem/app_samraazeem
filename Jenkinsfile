@@ -42,9 +42,7 @@ pipeline{
                 branch 'master'
             }
 			steps{
-				withSonarQubeEnv('SONAR'){
-					sh 'npm run sonar'
-				}
+				sh 'npm run sonar'
 			}
 		}
 
