@@ -49,10 +49,8 @@ pipeline{
 		}
 
         stage('Docker Image') { 
-            steps{
-                script {
-                    dockerImage= docker.build registry + ":$BUILD_NUMBER"
-                }
+          steps{
+            sh "docker build -t i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} ."
             }
         }
 
