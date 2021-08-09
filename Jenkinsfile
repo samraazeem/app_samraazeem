@@ -30,7 +30,7 @@ pipeline{
 
         stage('Unit Testing'){
             when {
-                branch 'development'
+                branch 'develop'
             }
             steps{
                sh 'ng test --codeCoverage=true --watcher=true'
@@ -39,7 +39,7 @@ pipeline{
 
         stage('SonarQube Analysis'){
             when {
-                branch 'production'
+                branch 'master'
             }
 			steps{
 				withSonarQubeEnv('SONAR'){
