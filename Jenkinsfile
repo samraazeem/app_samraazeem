@@ -33,7 +33,7 @@ pipeline{
                 branch 'develop'
             }
             steps{
-               sh 'npm update -y'
+               sh 'npm install'
             } 
         }
 
