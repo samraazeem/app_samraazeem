@@ -30,7 +30,7 @@ pipeline{
 
         stage('Unit Testing'){
             when {
-                branch 'development'
+                branch 'develop'
             }
             steps{
                sh 'ng test --codeCoverage=true --watcher=true'
@@ -39,7 +39,7 @@ pipeline{
 
         stage('SonarQube Analysis'){
             when {
-                branch 'production'
+                branch 'master'
             }
 			steps{
 				withSonarQubeEnv('SONAR'){
@@ -50,9 +50,7 @@ pipeline{
 
         stage('Docker Image') { 
             steps{
-                script {
-                    dockerImage= docker.build registry + ":$BUILD_NUMBER"
-                }
+                sh "docker build -t i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} ."
             }
         }
 
@@ -81,9 +79,9 @@ pipeline{
         } 
         stage('Kubernetes Deployment'){
             steps{
-                //sh 'kubectl apply -f ./kubernetes/frontend.yaml -n=kubernetes-cluster-samraazeem'
-                //sh 'kubectl apply -f ./kubernetes/backend.yaml -n=kubernetes-cluster-samraazeem'
-                sh 'npm install'
+                sh 'kubectl config use-context Istio-Cluster'
+                sh 'kubectl apply -f ./kubernetes/frontend.yml -n=kubernetes-cluster-samraazeem'
+                sh 'kubectl apply -f ./kubernetes/backend.yml -n=kubernetes-cluster-samraazeem'
             }
         } 
     }
