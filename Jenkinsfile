@@ -48,7 +48,7 @@ pipeline{
 			}
 		}
 
-       /*** stage('Docker Image') { 
+       stage('Docker Image') { 
             steps{
                 sh "docker build -t i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} ."
             }
@@ -83,6 +83,6 @@ pipeline{
                 sh 'kubectl apply -f ./kubernetes/frontend.yml -n=kubernetes-cluster-samraazeem'
                 sh 'kubectl apply -f ./kubernetes/backend.yml -n=kubernetes-cluster-samraazeem'
             }
-        }  ***/
+        } 
     }
 }
