@@ -6,8 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --code-coverage",
-    "sonar": "sonar-scanner"
+    "test": "ng test",
+    "sonar": "sonar-scanner -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.projectKey=sonar-samraazeem -Dsonar.host.url=http://52.249.217.108:9000 -Dsonar.login=101a2fd8375aad4e6bcfbe57a142b755e89f2df9"
   },
   "private": true,
   "dependencies": {
