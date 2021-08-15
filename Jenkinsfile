@@ -33,7 +33,7 @@ pipeline{
                 branch 'develop'
             }
             steps{
-                sh 'npm run test'
+                sh 'npm run test -- --code-coverage'
             } 
         }
 
