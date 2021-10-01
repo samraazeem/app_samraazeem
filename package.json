@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --no-watch --code-coverage",
     "sonar": "sonar-scanner -Dsonar.login=101a2fd8375aad4e6bcfbe57a142b755e89f2df9"
   },
   "private": true,
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~12.0.3",
     "@angular/platform-browser-dynamic": "~12.0.3",
     "@angular/router": "~12.0.3",
+    "intl": "^1.2.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
@@ -35,6 +36,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "karma-phantomjs-launcher": "^1.0.4",
     "sonar-scanner": "^3.1.0",
     "typescript": "~4.2.3"
   }
